@@ -6,6 +6,7 @@ public class Main {
         Ui ui = new Ui();
         Basket basket = new Basket();
         ui.manageBasket(basket);
+        //succes
     }
 
 }
