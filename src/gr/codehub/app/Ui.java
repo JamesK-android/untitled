@@ -4,36 +4,43 @@ import java.util.Scanner;
 
 public class Ui {
 
-    public Choice menu(){
-        Choice returnChoice;
-        System.out.println("1. Add a product to Basket   2. Remove a product" +
-                "    3. Display basket     4.  Clear basket     0. Exit" +
-                "");
+    public Choice menu() {
 
         int choice;
         Scanner scanner = new Scanner(System.in);
-    try {
+        try {
             choice = scanner.nextInt();
-            switch(choice){
-                case 1: return Choice.ADD;
-                case 2: return Choice.REMOVE;
-                case 3: return Choice.DISPLAY;
-                case 4: return Choice.CLEAR;
-                case 5: return Choice.TOTALCOST;
-                case 6: return Choice.SAVE;
-                case 7: return Choice.LOAD;
-                case 0: return Choice.EXIT;
-                default:return Choice.ERROR;
+            switch (choice) {
+                case 1:
+                    return Choice.ADD;
+                case 2:
+                    return Choice.REMOVE;
+                case 3:
+                    return Choice.DISPLAY;
+                case 4:
+                    return Choice.CLEAR;
+                case 5:
+                    return Choice.TOTALCOST;
+                case 6:
+                    return Choice.SAVE;
+                case 7:
+                    return Choice.LOAD;
+                case 0:
+                    return Choice.EXIT;
+                default:
+                    return Choice.ERROR;
             }
+        } catch (Exception e) {
+            return Choice.ERROR;
         }
-    catch(Exception e){
-        return Choice.ERROR;
-    }
 
     }
+
+
+
 
     //factory method design pattern
-    public Product createProduct(){
+    public Product createProduct() {
         String code;
         String name;
         float price;
@@ -55,21 +62,95 @@ public class Ui {
 
     }
 
+    public Customer createCustomer() {
+        String code;
+        String sarename;
+        String lastname;
+        String sex;
+        String dateofbarth;
+        String telephone;
 
-    public void manageBasket(Basket basket){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Give the customer code");
+        code = scanner.next();
+        System.out.println("Give the last name");
+        lastname = scanner.next();
+        System.out.println("Give the sare name");
+        sarename = scanner.next();
+        System.out.println("Give the sex");
+        sex = scanner.next();
+        System.out.println("Give the date of bearth");
+        dateofbarth = scanner.next();
+        System.out.println("Give the phone");
+        telephone = scanner.next();
+
+        Customer customer = new Customer(code, lastname, sarename, sex, dateofbarth, telephone);
+
+        return customer;
+    }
+
+    public void manageCustomer(AllCustomers allcustomer) {
         Choice choice;
         do {
-            choice =  menu();
+            System.out.println("1. Add a customer   2. Remove a customer" +
+                    "    3. Display customers     4.  Clear customers" +
+                    "   5. Total customers    6.Save customers   7.Load customers   0.Exit");
+            choice = menu();
 
             switch (choice) {
                 case ADD:
-                    Product product =  createProduct();
+                    Customer customer = createCustomer();
+                    allcustomer.addCustomer(customer);
+                    break;
+                case REMOVE:
+                    System.out.println("Give an index to remove");
+                    Scanner scanner = new Scanner(System.in);
+                    int index = scanner.nextInt();
+                    allcustomer.removeCustomer(index);
+                    break;
+                case DISPLAY:
+                    allcustomer.displayListofCustomers();
+                    break;
+                case CLEAR:
+                    allcustomer.clearCustomers();
+                    break;
+                case TOTALCOST:
+                    System.out.println("Number of customers = " + allcustomer.numofCustomers());
+                    break;
+                case EXIT:
+                    break;
+                case SAVE:
+                    allcustomer.saveCustomerslist("customerlist.txt");
+                    break;
+                case LOAD:
+                    allcustomer.loadCustomerslist("customerlist.txt");
+                    break;
+                case ERROR:
+                    System.out.println("You gave erroneous input");
+                    break;
+
+            }
+        } while (choice != Choice.EXIT);
+    }
+
+
+    public void manageBasket(Basket basket) {
+        Choice choice;
+        do {
+            System.out.println("1. Add a product to Basket   2. Remove a product" +
+                    "    3. Display basket     4.  Clear basket" +
+                    "   5. Totalcost    6.Save basket   7.Load basket   0.Exit");
+            choice = menu();
+
+            switch (choice) {
+                case ADD:
+                    Product product = createProduct();
                     basket.addProduct(product);
                     break;
                 case REMOVE:
                     System.out.println("Give an index to remove");
                     Scanner scanner = new Scanner(System.in);
-                    int index= scanner.nextInt();
+                    int index = scanner.nextInt();
                     basket.removeProduct(index);
                     break;
                 case DISPLAY:
@@ -94,11 +175,8 @@ public class Ui {
                     break;
 
             }
-        }while(choice!= Choice.EXIT);
+        } while (choice != Choice.EXIT);
 
     }
-
-
-
 
 }
