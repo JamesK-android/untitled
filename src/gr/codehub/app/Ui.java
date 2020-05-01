@@ -37,8 +37,6 @@ public class Ui {
     }
 
 
-
-
     //factory method design pattern
     public Product createProduct() {
         String code;
@@ -89,7 +87,7 @@ public class Ui {
         return customer;
     }
 
-    public void manageCustomer(AllCustomers allcustomer) {
+    public void manageCustomer(Basket basket,AllCustomers allcustomer) {
         Choice choice;
         do {
             System.out.println("1. Add a customer   2. Remove a customer" +
@@ -131,10 +129,11 @@ public class Ui {
 
             }
         } while (choice != Choice.EXIT);
+        choosetoManage(basket, allcustomer);
     }
 
 
-    public void manageBasket(Basket basket) {
+    public void manageBasket(Basket basket,AllCustomers allcustomer) {
         Choice choice;
         do {
             System.out.println("1. Add a product to Basket   2. Remove a product" +
@@ -176,6 +175,32 @@ public class Ui {
 
             }
         } while (choice != Choice.EXIT);
+        choosetoManage(basket, allcustomer);
+
+    }
+
+    public void choosetoManage(Basket basket, AllCustomers allCustomers) {
+
+        int choice;
+        Scanner scanner = new Scanner(System.in);
+        try {
+            do {
+                System.out.println("1. Handle products  2.Handle customers  0.Exit");
+                choice = scanner.nextInt();
+            } while (choice < 0 || choice >= 3);
+
+            switch (choice) {
+                case 1:
+                    manageBasket(basket, allCustomers);
+                    break;
+                case 2:
+                    manageCustomer(basket, allCustomers);
+                    break;
+            }
+        }catch (Exception e){
+            System.out.println("You gave erroneous input");
+            choosetoManage(basket, allCustomers);
+        }
 
     }
 

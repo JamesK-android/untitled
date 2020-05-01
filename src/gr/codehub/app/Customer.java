@@ -11,12 +11,13 @@ public class Customer {
     private String CustomerCode;
 
     public Customer(String CustomerCode,String LastName,String SareName,String Sex,String DateofBarth,String Telephone){
+        this.CustomerCode = CustomerCode;
         this.SareName = SareName;
         this.LastName = LastName;
         this.Sex = Sex;
         this.DateofBarth = DateofBarth;
         this.Telephone = Telephone;
-        this.CustomerCode = CustomerCode;
+
 
     }
 

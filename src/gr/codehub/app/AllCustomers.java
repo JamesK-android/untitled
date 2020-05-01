@@ -16,7 +16,17 @@ public class AllCustomers {
     }
 
     public void displayListofCustomers(){
+
         customers.forEach(System.out::println);
+
+
+        for(Customer c : customers) {
+            System.out.println(c.getCustomerCode() + "," + c.getLastName() + "," + c.getSareName()
+                                + "," + c.getSex() + "," + c.getDateofBarth() + "," + c.getTelephone());
+        }
+
+
+        //customers.forEach( customer -> System.out.println(customer));
     }
 
     public int numofCustomers(){
